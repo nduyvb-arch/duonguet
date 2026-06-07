@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Kỹ Thuật Số - Ngô Đình Dương</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #ec4899;
+            --tertiary: #06b6d4;
+            --bg-color: #f0fdfa;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --white: rgba(255, 255, 255, 0.85);
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .project-week {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Abstract Background Shapes */
+        .bg-shape {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: float 10s infinite alternate ease-in-out;
+        }
+        .shape-1 {
+            width: 400px; height: 400px;
+            background: rgba(236, 72, 153, 0.4);
+            top: -10%; left: -10%;
+        }
+        .shape-2 {
+            width: 500px; height: 500px;
+            background: rgba(6, 182, 212, 0.4);
+            bottom: -20%; right: -10%;
+            animation-delay: -5s;
+        }
+        .shape-3 {
+            width: 300px; height: 300px;
+            background: rgba(79, 70, 229, 0.4);
+            top: 40%; left: 40%;
+            animation-duration: 15s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
+        }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-on-load {
+            animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Glassmorphism Header */
+        header {
+            margin: 3rem auto 4rem;
+            padding: 4rem 2rem;
+            text-align: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 2rem;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--tertiary));
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #4f46e5, #db2777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .hero-content h2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            color: var(--text-muted);
+        }
+
+        .student-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .student-badge {
+            background: rgba(255,255,255,0.8);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 500;
+            color: var(--text-main);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+
+        .student-badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            background: #fff;
+        }
+
+        section {
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(90deg, var(--text-main), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px rgba(31, 38, 135, 0.15);
+            border-color: rgba(255,255,255,0.8);
+        }
+
+        /* Intro Section */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .glass-card h3 {
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .project-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-week {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            align-self: flex-start;
+            box-shadow: 0 4px 10px rgba(236, 72, 153, 0.3);
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            flex-grow: 1;
+            font-size: 1rem;
+        }
+
+        .project-desc strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), #818cf8);
+            color: white;
+            padding: 0.9rem 1.5rem;
+            text-decoration: none;
+            border-radius: 1rem;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            transition: var(--transition);
+            margin-top: auto;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .download-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .download-btn:hover::after {
+            left: 100%;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.5);
+        }
+
+        /* Summary Section */
+        .summary-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .summary-item {
+            padding: 2rem;
+            border-left: 5px solid var(--tertiary);
+            background: linear-gradient(90deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.2) 100%);
+            border-radius: 0 1rem 1rem 0;
+            transition: var(--transition);
+        }
+
+        .summary-item:nth-child(even) {
+            border-left-color: var(--secondary);
+        }
+        
+        .summary-item:nth-child(3) {
+            border-left-color: var(--primary);
+        }
+
+        .summary-item:hover {
+            background: rgba(255,255,255,0.9);
+            transform: translateX(10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .summary-item h3 {
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            color: var(--text-main);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            margin-top: 5rem;
+        }
+        
+        footer p {
+            opacity: 0.8;
+            font-size: 1.1rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .intro-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .student-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            .student-badge {
+                width: 100%;
+                justify-content: center;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated Background -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+
+    <div class="container">
+        <header class="animate-on-load">
+            <div class="hero-content">
+                <h1>Portfolio Kỹ Thuật Số</h1>
+                <h2>Môn: Nhập môn công nghệ số và ứng dụng trí tuệ nhân tạo</h2>
+                <div class="student-info">
+                    <div class="student-badge">
+                        <span>👤</span> Họ và tên: Ngô Đình Dương
+                    </div>
+                    <div class="student-badge">
+                        <span>🎓</span> Mã SV: 25023745
+                    </div>
+                    <div class="student-badge">
+                        <span>🏫</span> ĐH Công Nghệ - ĐHQGHN
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- I. Trang Giới thiệu -->
+        <section id="gioi-thieu" class="animate-on-load delay-1">
+            <h2 class="section-title">I. Giới thiệu</h2>
+            <div class="intro-grid">
+                <div class="glass-card">
+                    <h3>👋 Về bản thân</h3>
+                    <p>Xin chào, mình là <strong>Ngô Đình Dương</strong>, sinh viên trường Đại học Công Nghệ - ĐHQGHN (VNU-UET). Mình có niềm đam mê mãnh liệt với công nghệ, ứng dụng AI và thiết kế giao diện. Qua môn học này, mình mong muốn trau dồi các kỹ năng tư duy số và sáng tạo không giới hạn.</p>
+                </div>
+                <div class="glass-card">
+                    <h3>🎯 Mục tiêu Portfolio</h3>
+                    <ul style="list-style-type: none;">
+                        <li style="margin-bottom: 0.8rem;">✨ Thể hiện các kiến thức và kỹ năng số đã rèn luyện.</li>
+                        <li style="margin-bottom: 0.8rem;">📂 Lưu trữ sản phẩm hệ thống, dễ dàng truy cập và chia sẻ.</li>
+                        <li>🏆 Tổng hợp các bài tập (Bài 1 - Bài 6) thành một hệ sinh thái số thống nhất.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- II. Trang Dự án -->
+        <section id="du-an" class="animate-on-load delay-2">
+            <h2 class="section-title">II. Các Dự Án & Bài Tập Thực Hành</h2>
+            <div class="projects-grid">
+                
+                <div class="glass-card project-card">
+                    <div class="project-week">Bài tập 1</div>
+                    <h3 class="project-title">Thao tác cơ bản với tệp tin và thư mục</h3>
+                    <div class="project-desc">
+                        <p><strong>Mục tiêu:</strong> Nắm vững các thao tác trên hệ điều hành, quản lý dữ liệu thông minh.</p><br>
+                        <p><strong>Kết quả:</strong> Tạo cây thư mục khoa học, thành thạo điều phối và tổ chức tệp tin nhằm tối ưu hóa workflow cá nhân.</p>
+                    </div>
+                    <a href="b1.docx" class="download-btn" target="_blank">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        Xem tài liệu (B1)
+                    </a>
+                </div>
+
+                <div class="glass-card project-card">
+                    <div class="project-week">Bài tập 2</div>
+                    <h3 class="project-title">Tìm kiếm và đánh giá thông tin học thuật</h3>
+                    <div class="project-desc">
+                        <p><strong>Mục tiêu:</strong> Làm chủ các toán tử tìm kiếm chuyên sâu để tra cứu tài liệu nghiên cứu.</p><br>
+                        <p><strong>Kết quả:</strong> Lập danh mục tài liệu xuất sắc về "Khai thác ngôn ngữ thị giác từ hoa văn truyền thống", đảm bảo độ tin cậy của nguồn tin.</p>
+                    </div>
+                    <a href="b2.docx" class="download-btn" target="_blank">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        Xem tài liệu (B2)
+                    </a>
+                </div>
+
+                <div class="glass-card project-card">
+                    <div class="project-week">Bài tập 3</div>
+                    <h3 class="project-title">Viết Prompt hiệu quả cho các tác vụ học tập</h3>
+                    <div class="project-desc">
+                        <p><strong>Mục tiêu:</strong> Ứng dụng Prompt Engineering để tương tác tối đa với AI tạo sinh.</p><br>
+                        <p><strong>Kết quả:</strong> Thiết kế chuỗi Prompt nâng cao, hỗ trợ bóc tách, tóm tắt và giải nghĩa các khái niệm kỹ thuật phức tạp siêu tốc.</p>
+                    </div>
+                    <a href="b3.docx" class="download-btn" target="_blank">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        Xem tài liệu (B3)
+                    </a>
+                </div>
+
+                <div class="glass-card project-card">
+                    <div class="project-week">Bài tập 4</div>
+                    <h3 class="project-title">Giao tiếp và hợp tác trong môi trường số</h3>
+                    <div class="project-desc">
+                        <p><strong>Mục tiêu:</strong> Chinh phục các công cụ làm việc nhóm trực tuyến để vận hành dự án.</p><br>
+                        <p><strong>Kết quả:</strong> Điều phối thành công chiến dịch "Sống Xanh", liên kết mượt mà giữa Trello, Google Docs, Drive và Zalo.</p>
+                    </div>
+                    <a href="b4.docx" class="download-btn" target="_blank">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        Xem tài liệu (B4)
+                    </a>
+                </div>
+
+                <div class="glass-card project-card">
+                    <div class="project-week">Bài tập 5</div>
+                    <h3 class="project-title">Sử dụng AI tạo sinh hỗ trợ sáng tạo nội dung</h3>
+                    <div class="project-desc">
+                        <p><strong>Mục tiêu:</strong> Khai phá sức mạnh của AI trong sản xuất nội dung đa phương tiện.</p><br>
+                        <p><strong>Kết quả:</strong> Tự động hóa thiết kế Slide và Infographic bằng Gemini & SlidesAI. Thấu hiểu rõ ranh giới giữa AI và tư duy sáng tạo thủ công.</p>
+                    </div>
+                    <a href="b5.docx" class="download-btn" target="_blank">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        Xem tài liệu (B5)
+                    </a>
+                </div>
+
+                <div class="glass-card project-card">
+                    <div class="project-week">Bài tập 6</div>
+                    <h3 class="project-title">Sử dụng AI có trách nhiệm trong nghiên cứu</h3>
+                    <div class="project-desc">
+                        <p><strong>Mục tiêu:</strong> Đề cao đạo đức, pháp lý và sự bảo mật khi ứng dụng công nghệ lõi.</p><br>
+                        <p><strong>Kết quả:</strong> Hoàn thiện bài nghiên cứu "Thách thức bảo mật dữ liệu cá nhân trong hệ thống AI tại Việt Nam" tuân thủ chuẩn mực học thuật và Nghị định 13/2023/NĐ-CP.</p>
+                    </div>
+                    <a href="b6.docx" class="download-btn" target="_blank">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        Xem tài liệu (B6)
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- III. Trang Tổng kết -->
+        <section id="tong-ket" class="animate-on-load delay-3">
+            <h2 class="section-title">III. Tổng Kết</h2>
+            <div class="glass-card summary-container">
+                <div class="summary-item">
+                    <h3>💡 Cảm nhận và Trải nghiệm</h3>
+                    <p>Quá trình xây dựng Portfolio thực sự đem lại cảm giác thành tựu lớn lao. Nó là chiếc gương phản chiếu lại hành trình học tập, giúp tôi xâu chuỗi mọi kiến thức từ cơ bản đến ứng dụng AI phức tạp một cách cực kỳ logic.</p>
+                </div>
+                <div class="summary-item">
+                    <h3>🎯 Chìa khóa thành công</h3>
+                    <p>Nhân tố quan trọng nhất mà tôi tích lũy được chính là kỹ năng <strong>Prompt Engineering</strong> và <strong>Nghiên cứu học thuật số</strong>. Bên cạnh đó, tư duy vận hành và điều phối quy trình làm việc nhóm cũng được nâng lên một tầm cao mới.</p>
+                </div>
+                <div class="summary-item">
+                    <h3>⭐ Niềm tự hào</h3>
+                    <p>Tôi đặc biệt tâm đắc với việc định hình được "Tư duy AI có trách nhiệm". Nhận thức được ranh giới pháp lý và quyền riêng tư giúp tôi làm chủ công nghệ, biến nó thành công cụ bứt phá thay vì phụ thuộc một cách mù quáng.</p>
+                </div>
+                <div class="summary-item">
+                    <h3>🚀 Vượt qua giới hạn</h3>
+                    <p>Thách thức lớn nhất nằm ở việc hệ thống hóa lượng dữ liệu khổng lồ thành những giao diện trực quan và dễ tiếp cận. Qua thử thách này, tư duy thiết kế, bố cục nội dung (UX/UI căn bản) của tôi đã được rèn giũa mạnh mẽ.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="animate-on-load delay-4">
+        <p>&copy; 2026 Portfolio Kỹ Thuật Số - <strong>Ngô Đình Dương (25023745)</strong></p>
+    </footer>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Pause animation initially for elements below fold
+        document.querySelectorAll('.animate-on-load').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+        
+        // Trigger for visible elements immediately
+        setTimeout(() => {
+            document.querySelectorAll('.animate-on-load').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if(rect.top < window.innerHeight) {
+                    el.style.animationPlayState = 'running';
+                }
+            });
+        }, 100);
+    </script>
+</body>
+</html>
